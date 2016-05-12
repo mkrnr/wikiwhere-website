@@ -14,7 +14,7 @@
   <body>
 
     <?php
-      $article_url = $_GET['article-url'];
+      $article_url = $_GET['url'];
       $handle = @fopen($article_url,'r');
 
       if($handle !== false){
@@ -36,7 +36,7 @@
     <h1><?php echo $article_url; ?></h1>
     <script>
 	var data;
-		
+
 	//var article_counts_path = article_path;
 
 	d3.json(article_counts_path, function(dataset) {

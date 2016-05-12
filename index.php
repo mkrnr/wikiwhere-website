@@ -3,17 +3,17 @@
   <head>
     <?php
       $default="https://de.wikipedia.org/wiki/Krimkrise";
-      $call="show-info.php";
+      $call="load.php";
       $python=filter_input(INPUT_GET, 'python');
       if (isset($python)){
         $call.="?python=".$python;
       }
     ?>
-      
+
   </head>
   <body>
     <form action=<?php echo $call ?> method="get">
-      Article URL: <input type="text" id="article-input" name="article-url" size=50 placeholder=<?php echo $default; ?>><br>
+      Article URL: <input type="text" id="article-input" name="url" size=50 placeholder=<?php echo $default; ?>><br>
       <input type="checkbox" name="new-crawl" value="true">Fresh crawl<br>
       <input type="submit">
     </form>
