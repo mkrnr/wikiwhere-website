@@ -28,6 +28,10 @@ if __name__ == "__main__":
 
     # get article url
     article_url =  sys.argv[1]
+    
+    if "wikipedia.org" not in article_url:
+        print "not wiki"
+        sys.exit(0)
 
     new_crawl = False
     if len(sys.argv)>2:
@@ -72,7 +76,6 @@ if __name__ == "__main__":
 
         classification_general_counts = count_generation.generate_counts(collected_features_array, "classification-general")
         classification_general_counts_array = count_generation.get_as_array(classification_general_counts)
-        #generated_counts_arra = co
 
         # generate directory if it doesn't exist
         if not os.path.exists(language_path):

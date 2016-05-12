@@ -40,6 +40,12 @@
         echo "</html>";
         exit(1);
       }
+      if ($article_path == "not wiki"){
+        echo "This is not a Wikipedia URL: " . $article_url;
+        echo "</body>";
+        echo "</html>";
+        exit(1);
+      }
     ?>
     <script>
         var article_path = '<?php echo $article_path; ?>';
