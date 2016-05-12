@@ -11,7 +11,7 @@
 
     <script>
       var url = window.location.href ;
-      var load = url.replace("load.php","article.php");
+      var load = url.replace("/load.php","/article.php");
       window.location = load;
     </script>
   </body>
