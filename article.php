@@ -34,6 +34,12 @@
         echo "</html>";
         exit(1);
       }
+      if ($article_path == "empty"){
+        echo "No URLs found. Maybe the URL redirects to another article?";
+        echo "</body>";
+        echo "</html>";
+        exit(1);
+      }
     ?>
     <script>
         var article_path = '<?php echo $article_path; ?>';

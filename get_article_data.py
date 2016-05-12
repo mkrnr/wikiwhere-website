@@ -2,11 +2,11 @@ import sys
 import collections
 import os
 import json
+import psutil
+
 from wikiwhere.main.article_extraction import ArticleExtraction
 from wikiwhere.utils import json_writer
 from wikiwhere.main.count_generation import CountGeneration
-
-import psutil
 
 #create NamedTuple type for loading the world factbook data set
 #load pickled data
@@ -16,14 +16,14 @@ if __name__ == "__main__":
 
     max_python_processes = 10
 
-    # get the number of running python processes that are currently running 
-    process_name = "python2" 
+    # get the number of running python processes that are currently running
+    process_name = "python2"
     python_process_count = 0
-    for proc in psutil.process_iter(): 
+    for proc in psutil.process_iter():
         process = psutil.Process(proc.pid)# Get the process info using PID
         pname = process.name()# Here is the process name
         #print pname
-        if pname == process_name: 
+        if pname == process_name:
             python_process_count += 1
 
     # get article url
@@ -62,14 +62,14 @@ if __name__ == "__main__":
     if new_crawl or not os.path.isfile(article_feature_path):
         # exit of too many python programs are already running
         if python_process_count > max_python_processes:
-           print "busy" 
+           print "busy"
            sys.exit(1)
         # generate new article
         collected_features = article_extraction.collect_features(article_url)
         collected_features_with_prediction = article_extraction.add_predictions(language,collected_features)
         collected_features_array = article_extraction.get_as_array(collected_features_with_prediction)
-        
-        
+
+
         classification_general_counts = count_generation.generate_counts(collected_features_array, "classification-general")
         classification_general_counts_array = count_generation.get_as_array(classification_general_counts)
         #generated_counts_arra = co
@@ -78,10 +78,14 @@ if __name__ == "__main__":
         if not os.path.exists(language_path):
             os.makedirs(language_path)
 
-        # write generated file
-        json_writer.write_json_file(collected_features_array, article_feature_path)
-        json_writer.write_json_file(classification_general_counts_array, article_count_path)
-    
+        if len(collected_features_array) > 0:
+            # write generated file
+            json_writer.write_json_file(collected_features_array, article_feature_path)
+            json_writer.write_json_file(classification_general_counts_array, article_count_path)
+        else:
+            print "empty"
+            sys.exit(0)
+
     # load existing article from JSON
     #with open(article_path) as data_file:
     #    data = json.load(data_file)
