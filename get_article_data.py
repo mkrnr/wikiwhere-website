@@ -1,17 +1,31 @@
 import sys
-from wikiwhere.main.article_extraction import ArticleExtraction
 import collections
 import os
 import json
+from wikiwhere.main.article_extraction import ArticleExtraction
 from wikiwhere.utils import json_writer
 from wikiwhere.main.count_generation import CountGeneration
 
+import psutil
 
 #create NamedTuple type for loading the world factbook data set
 #load pickled data
 Country = collections.namedtuple('Country', 'name, gec, iso2c, iso3c, isonum, stanag, tld')
 
 if __name__ == "__main__":
+
+    max_python_processes = 10
+
+    # get the number of running python processes that are currently running 
+    process_name = "python" 
+    python_process_count = 0
+    for proc in psutil.process_iter(): 
+        process = psutil.Process(proc.pid)# Get the process info using PID
+        pname = process.name()# Here is the process name
+        #print pname
+        if pname == process_name: 
+            python_process_count += 1
+
     # get article url
     article_url =  sys.argv[1]
 
@@ -46,6 +60,10 @@ if __name__ == "__main__":
     article_count_path = os.path.join(language_path,title+"-counts-classification-general.json")
 
     if new_crawl or not os.path.isfile(article_feature_path):
+        # exit of too many python programs are already running
+        if python_process_count > max_python_processes:
+           print "busy" 
+           sys.exit(1)
         # generate new article
         collected_features = article_extraction.collect_features(article_url)
         collected_features_with_prediction = article_extraction.add_predictions(language,collected_features)

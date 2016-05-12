@@ -28,6 +28,12 @@
          echo "URL doesn't exist";
          return false;
       }
+      if ($article_path == "busy"){
+        echo "Currently the server is running too many calculations. Please try again later.";
+        echo "</body>";
+        echo "</html>";
+        exit(1);
+      }
     ?>
     <script>
         var article_path = '<?php echo $article_path; ?>';
