@@ -3,6 +3,8 @@
   <head>
 <?php echo file_get_contents("templates/head-scripts.php") ?>
 
+    <script type="text/javascript" src="js/url-mod.js"></script>
+
     <?php
       $article_url = filter_input(INPUT_GET, 'url');
       $new_crawl=filter_input(INPUT_GET, 'new-crawl');
@@ -33,15 +35,22 @@
     <div class="container">
       <h1><?php echo $article_url; ?></h1>
 
-      <a id="myLink" title="Click to go to JSON file"
+      <a title="Click to go to JSON file"
         href="#" onclick="toJson();return false;">Get JSON file</a>
     </div>
     <div id="pie" align="center"></div>
     <div id="table" align="center"></div>
     <?php include 'php/get-article.php';?>
+
     <script>
-        var article_path = '<?php echo $article_path; ?>';
-        var article_counts_path = article_path.replace(".json","-counts-classification-general.json");
+      var article_url = window.location.href ;
+      var url_removed = removeVariableFromURL(article_url, "new-crawl");
+      history.pushState(null, '', url_removed);
+    </script>
+
+    <script>
+      var article_path = '<?php echo $article_path; ?>';
+      var article_counts_path = article_path.replace(".json","-counts-classification-general.json");
     </script>
     <script>
 	var data;

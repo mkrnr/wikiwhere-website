@@ -4,10 +4,12 @@
 wikiwhere
 
 data
-js
 fonts
 
 css/*
 !css/custom.css
 
+
+js/*
+!js/url-mod.js
 
