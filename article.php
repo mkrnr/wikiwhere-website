@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
+<?php echo file_get_contents("templates/head-scripts.php") ?>
+
     <?php
+      $article_url = filter_input(INPUT_GET, 'url');
       $new_crawl=filter_input(INPUT_GET, 'new-crawl');
 
       $python=filter_input(INPUT_GET, 'python');
@@ -9,12 +12,20 @@
         $python="/usr/bin/python2";
       }
     ?>
+
     <script type="text/javascript" src="js/d3.js"></script>
+
+    <title>wikiwhere - <?php echo $article_url;?></title>
   </head>
   <body>
+<?php echo file_get_contents("templates/header.php") ?>
 
+    <div class="container">
+      <h1><?php echo $article_url; ?></h1>
+    </div>
+    <div id="pie" align="center"></div>
+    <div id="table" align="center"></div>
     <?php
-      $article_url = $_GET['url'];
       $handle = @fopen($article_url,'r');
 
       if($handle !== false){
@@ -51,7 +62,6 @@
         var article_path = '<?php echo $article_path; ?>';
         var article_counts_path = article_path.replace(".json","-counts-classification-general.json");
     </script>
-    <h1><?php echo $article_url; ?></h1>
     <script>
 	var data;
 
@@ -78,7 +88,7 @@
 
 
 
-	var svg = d3.select("body").append("svg")
+	var svg = d3.select("#pie").append("svg")
 	  .attr("width", width)
 	  .attr("height", height)
 	  .append("g")
@@ -110,7 +120,7 @@
         d3.json(article_path, function (error, data){
 
 	function tabulate(data, columns) {
-		var table = d3.select('body').append('table')
+		var table = d3.select('#table').append('table')
 		var thead = table.append('thead')
 		var	tbody = table.append('tbody');
 
@@ -141,8 +151,10 @@
 	  return table;
 	}
 	// render the table(s)
-	tabulate(data, ['url', 'classification', 'classification-general', 'ip-location', 'tld-location', 'website-language', 'wikipedia-language']); // 7 column table
+	var table = tabulate(data, ['url', 'classification', 'classification-general', 'ip-location', 'tld-location', 'website-language', 'wikipedia-language']); // 7 column table
+
 	});
+
     </script>
     <script>
       //var article_path = '<?php echo $article_path; ?>';
@@ -158,5 +170,9 @@
       //document.write('<pre id="json"></pre>');
       //document.getElementById("json").innerHTML = JSON.stringify(article_json_parsed, undefined, 2);
     </script>
+
+<?php echo file_get_contents("templates/footer.php") ?>
+
+<?php echo file_get_contents("templates/body-scripts.php") ?>
   </body>
 </html>
