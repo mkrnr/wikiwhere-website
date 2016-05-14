@@ -2,15 +2,16 @@
   $handle = @fopen($article_url,'r');
 
   if($handle !== false){
-     if($new_crawl == true){
-       $article_path = exec($python.' get_article_data.py ' . $article_url . " " . $new_crawl);
-     }else{
-       $article_path = exec($python.' get_article_data.py ' . $article_url);
-     }
+    $article_url_encoded = urlencode ($article_url);
+    if($new_crawl == true){
+      $article_path = exec($python.' get_article_data.py ' . $article_url_encoded . " " . $new_crawl);
+    }else{
+      $article_path = exec($python.' get_article_data.py ' . $article_url_encoded);
+    }
   }
   else{
-     echo "URL doesn't exist";
-     return false;
+    echo "URL doesn't exist";
+    return false;
   }
   if ($article_path == "busy"){
     echo "Currently the server is running too many calculations. Please try again later.";
