@@ -1,0 +1,21 @@
+.m-t-7  { margin-top:7px; }
+.m-t-10 { margin-top:10px; }
+.m-t-15 { margin-top:15px; }
+.m-t-17 { margin-top:17px; }
+.m-t-30 { margin-top:30px; }
+
+.m-r-7  { margin-right:7px; }
+.m-r-10 { margin-right:10px; }
+.m-r-15 { margin-right:15px; }
+.m-r-17 { margin-right:17px; }
+.m-r-30 { margin-right:30px; }
+
+.col-centered{
+  float: none;
+  margin: 0 auto;
+}
+
+.analysis-input{
+  padding-top: 80px !important;
+}
+

@@ -5,6 +5,9 @@ wikiwhere
 
 data
 js
-css
 fonts
+
+css/*
+!css/custom.css
+
 
