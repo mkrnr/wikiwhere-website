@@ -13,7 +13,17 @@
       }
     ?>
 
+
     <script type="text/javascript" src="js/d3.js"></script>
+
+    <script>
+      function toJson() {
+        var url = window.location.href ;
+        var load = url.replace("/article.php","/json.php");
+        window.location = load;
+      }
+    </script>
+
 
     <title>wikiwhere - <?php echo $article_url;?></title>
   </head>
@@ -22,42 +32,13 @@
 
     <div class="container">
       <h1><?php echo $article_url; ?></h1>
+
+      <a id="myLink" title="Click to go to JSON file"
+        href="#" onclick="toJson();return false;">Get JSON file</a>
     </div>
     <div id="pie" align="center"></div>
     <div id="table" align="center"></div>
-    <?php
-      $handle = @fopen($article_url,'r');
-
-      if($handle !== false){
-         if($new_crawl == true){
-           $article_path = exec($python.' get_article_data.py ' . $article_url . " " . $new_crawl);
-         }else{
-           $article_path = exec($python.' get_article_data.py ' . $article_url);
-         }
-      }
-      else{
-         echo "URL doesn't exist";
-         return false;
-      }
-      if ($article_path == "busy"){
-        echo "Currently the server is running too many calculations. Please try again later.";
-        echo "</body>";
-        echo "</html>";
-        exit(1);
-      }
-      if ($article_path == "empty"){
-        echo "No URLs found. Maybe the URL redirects to another article?";
-        echo "</body>";
-        echo "</html>";
-        exit(1);
-      }
-      if ($article_path == "not wiki"){
-        echo "This is not a Wikipedia URL: " . $article_url;
-        echo "</body>";
-        echo "</html>";
-        exit(1);
-      }
-    ?>
+    <?php include 'php/get-article.php';?>
     <script>
         var article_path = '<?php echo $article_path; ?>';
         var article_counts_path = article_path.replace(".json","-counts-classification-general.json");
