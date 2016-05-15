@@ -88,7 +88,6 @@ if __name__ == "__main__":
 
         if len(collected_features_array) > 0:
             # write generated file
-            print article_feature_path
             json_writer.write_json_file(collected_features_array, article_feature_path)
             json_writer.write_json_file(classification_general_counts_array, article_count_path)
         else:
@@ -99,5 +98,5 @@ if __name__ == "__main__":
     #with open(article_path) as data_file:
     #    data = json.load(data_file)
 
-    print article_feature_path
+    print article_feature_path.encode("utf8")
 

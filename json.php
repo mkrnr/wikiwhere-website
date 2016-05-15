@@ -11,5 +11,4 @@
   include 'php/get-article.php';
   $current_url = "http://$_SERVER[HTTP_HOST]/";
   header("Location: " . $current_url . $article_path );
-  die();
 ?>
