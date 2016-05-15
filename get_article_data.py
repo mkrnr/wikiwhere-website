@@ -1,4 +1,5 @@
 import sys
+import re
 import collections
 import os
 import json
@@ -57,6 +58,7 @@ if __name__ == "__main__":
     count_generation = CountGeneration()
 
     language,title = article_extraction.parse_url(article_url)
+    title = re.sub(r'([()])', r'\\\1', title)
 
     #print language
 
@@ -86,6 +88,7 @@ if __name__ == "__main__":
 
         if len(collected_features_array) > 0:
             # write generated file
+            print article_feature_path
             json_writer.write_json_file(collected_features_array, article_feature_path)
             json_writer.write_json_file(classification_general_counts_array, article_count_path)
         else:
