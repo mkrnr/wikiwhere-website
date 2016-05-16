@@ -58,15 +58,14 @@ if __name__ == "__main__":
     count_generation = CountGeneration()
 
     language,title = article_extraction.parse_url(article_url)
-    title = re.sub(r'([()])', r'\\\1', title)
 
     #print language
 
     language_path = os.path.join("data","articles",language)
-    article_feature_path = os.path.join(language_path,title+".json")
+    article_feature_path = os.path.join(language_path,title+".json").encode("utf8")
 
     # TODO change name
-    article_count_path = os.path.join(language_path,title+"-counts-classification-general.json")
+    article_count_path = os.path.join(language_path,title+"-counts-classification-general.json").encode("utf8")
 
     if new_crawl or not os.path.isfile(article_feature_path):
         # exit of too many python programs are already running
@@ -98,5 +97,5 @@ if __name__ == "__main__":
     #with open(article_path) as data_file:
     #    data = json.load(data_file)
 
-    print article_feature_path.encode("utf8")
+    print article_feature_path
 
