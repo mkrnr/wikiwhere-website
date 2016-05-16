@@ -4,6 +4,7 @@ import collections
 import os
 import json
 import psutil
+import urllib
 
 from wikiwhere.main.article_extraction import ArticleExtraction
 from wikiwhere.utils import json_writer
@@ -28,8 +29,9 @@ if __name__ == "__main__":
             python_process_count += 1
 
     # get article url
-    article_url =  sys.argv[1]
-#    article_url =  urllib.unquote(article_url_encoded).decode('utf8')
+    article_url_encoded =  sys.argv[1]
+    article_url =  urllib.unquote(article_url_encoded)
+    print article_url
 
 
     if "wikipedia.org" not in article_url:
@@ -59,7 +61,6 @@ if __name__ == "__main__":
     language,title = article_extraction.parse_url(article_url)
 
     #print language
-
 
     language_path = os.path.join("articles",language)
     article_path = os.path.join(language_path,title)
