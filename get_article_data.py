@@ -5,6 +5,7 @@ import os
 import json
 import psutil
 import urllib
+import datetime
 
 from wikiwhere.main.article_extraction import ArticleExtraction
 from wikiwhere.utils import json_writer
@@ -68,8 +69,9 @@ if __name__ == "__main__":
 
     article_analysis_path = os.path.join(article_path,"analysis.json")
 
-    # TODO change name
     article_classification_general_count_path = os.path.join(article_path,"counts-classification-general.json")
+
+    article_info_path = os.path.join(article_path,"info.json")
 
     if new_crawl or not os.path.isfile(article_analysis_path):
         # exit of too many python programs are already running
@@ -81,24 +83,25 @@ if __name__ == "__main__":
         collected_features_with_prediction = article_extraction.add_predictions(language,collected_features)
         collected_features_array = article_extraction.get_as_array(collected_features_with_prediction)
 
-
         classification_general_counts = count_generation.generate_counts(collected_features_array, "classification-general")
         classification_general_counts_array = count_generation.get_as_array(classification_general_counts)
+        
+        now = datetime.datetime.now()
+        time_info = {}
+        time_info["analysis-date"]= now.strftime("%Y-%m-%d")
 
         # generate directory if it doesn't exist
         if not os.path.exists(language_path):
             os.makedirs(language_path)
 
         if len(collected_features_array) > 0:
-            # write generated file
+            # write generated files
             json_writer.write_json_file(collected_features_array, article_analysis_path)
             json_writer.write_json_file(classification_general_counts_array, article_classification_general_count_path)
+            json_writer.write_json_file(time_info, article_info_path)
         else:
             print "empty"
             sys.exit(0)
 
-    # load existing article from JSON
-    #with open(article_path) as data_file:
-    #    data = json.load(data_file)
 
     print article_path

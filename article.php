@@ -34,13 +34,14 @@
 
     <div class="container">
       <h1><?php echo $article_url; ?></h1>
+      <div id="analysis-date"></div>
 
       <a title="Click to go to JSON file"
         href="#" onclick="toJson();return false;">Get JSON file</a>
     </div>
     <div id="pie" align="center"></div>
     <div id="table" align="center"></div>
-    <?php include 'php/get-article.php';?>
+    <?php include "php/get-article.php";?>
 
     <script>
       var article_url = window.location.href ;
@@ -48,11 +49,23 @@
       history.pushState(null, '', url_removed);
     </script>
 
+    <?php
+      $article_analysis_path = $article_path . "/analysis.json";
+      $article_counts_path = $article_path . "/counts-classification-general.json";
+      $article_info_path = $article_path . "/info.json";
+
+      $info_string = file_get_contents($article_info_path);
+      $info_json=json_decode($info_string,true);
+      $analysis_date =date_format(date_create($info_json["analysis-date"]), 'F d, Y');
+    ?>
+
     <script>
-      var article_path = '<?php echo $article_path; ?>';
-      var article_analysis_path = article_path.concat("/analysis.json");
-      var article_counts_path = article_path.concat("/counts-classification-general.json");
+      var article_analysis_path = "<?php echo $article_analysis_path; ?>";
+      var article_counts_path = "<?php echo $article_counts_path; ?>";
+
+      document.getElementById("analysis-date").innerHTML = "Analysis from <?php echo $analysis_date; ?>";
     </script>
+
     <script>
 	var data;
 
