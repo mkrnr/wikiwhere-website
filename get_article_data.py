@@ -31,8 +31,6 @@ if __name__ == "__main__":
     # get article url
     article_url_encoded =  sys.argv[1]
     article_url =  urllib.unquote(article_url_encoded)
-    print article_url
-
 
     if "wikipedia.org" not in article_url:
         print "not wiki"
