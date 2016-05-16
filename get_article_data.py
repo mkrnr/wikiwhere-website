@@ -9,7 +9,8 @@ import datetime
 
 from wikiwhere.main.article_extraction import ArticleExtraction
 from wikiwhere.utils import json_writer
-from wikiwhere.main.count_generation import CountGeneration
+from wikiwhere.plot_data_generation.count_generation import CountGeneration
+from wikiwhere.plot_data_generation.map_data_generation import MapDataGeneration
 
 #create NamedTuple type for loading the world factbook data set
 #load pickled data
@@ -56,6 +57,7 @@ if __name__ == "__main__":
     languages = ["de", "en","es","fr","general","it","nl","sv","uk"]
     article_extraction = ArticleExtraction(geodatabase_path,ianadatabase_path,wfbdatabase_path,model_data_path,languages)
     count_generation = CountGeneration()
+    map_data_generation = MapDataGeneration()
 
     language,title = article_extraction.parse_url(article_url)
 
@@ -68,11 +70,11 @@ if __name__ == "__main__":
         os.makedirs(article_path)
 
     article_analysis_path = os.path.join(article_path,"analysis.json")
-
     article_classification_general_count_path = os.path.join(article_path,"counts-classification-general.json")
+    article_map_data_path = os.path.join(article_path,"map-data.json")
+    
 
     article_info_path = os.path.join(article_path,"info.json")
-
     article_plots_redirect_path = os.path.join(article_path,"visualization-redirect.php")
 
     if new_crawl or not os.path.isfile(article_analysis_path):
@@ -88,10 +90,15 @@ if __name__ == "__main__":
         classification_general_counts = count_generation.generate_counts(collected_features_array, "classification-general")
         classification_general_counts_array = count_generation.get_as_array(classification_general_counts)
         
+
+        map_data = map_data_generation.generate_map_data_array(collected_features_array,"classification-general")
+        print map_data
+        
         # get execution date
         now = datetime.datetime.now()
         time_info = {}
         time_info["analysis-date"]= now.strftime("%Y-%m-%d")
+        time_info["analysis-time"]= now.strftime("%H:%M:%S")
         
         
 
@@ -103,6 +110,7 @@ if __name__ == "__main__":
             # write generated files
             json_writer.write_json_file(collected_features_array, article_analysis_path)
             json_writer.write_json_file(classification_general_counts_array, article_classification_general_count_path)
+            json_writer.write_json_file(map_data, article_map_data_path)
             json_writer.write_json_file(time_info, article_info_path)
 
             # write php redirect file

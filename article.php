@@ -18,6 +18,10 @@
 
     <script type="text/javascript" src="js/d3.js"></script>
 
+    <!-- TODO host ourself -->
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="http://datamaps.github.io/scripts/datamaps.world.min.js?v=1"></script>
+
     <script>
       function toJson() {
         var url = window.location.href ;
@@ -38,9 +42,11 @@
 
       <a title="Click to go to JSON file"
         href="#" onclick="toJson();return false;">Get JSON file</a>
-    </div>
+
+    <div id="map" align="center"></div>
     <div id="pie" align="center"></div>
     <div id="table" align="center"></div>
+    </div>
     <?php include "php/get-article.php";?>
 
     <script>
@@ -52,6 +58,7 @@
     <?php
       $article_analysis_path = $article_path . "/analysis.json";
       $article_counts_path = $article_path . "/counts-classification-general.json";
+      $article_map_data_path = $article_path . "/map-data.json";
       $article_info_path = $article_path . "/info.json";
 
       $info_string = file_get_contents($article_info_path);
@@ -60,18 +67,70 @@
     ?>
 
     <script>
-      var article_analysis_path = "<?php echo $article_analysis_path; ?>";
-      var article_counts_path = "<?php echo $article_counts_path; ?>";
-
       document.getElementById("analysis-date").innerHTML = "Analysis from <?php echo $analysis_date; ?>";
     </script>
+
+     <script>
+       //basic map config with custom fills, mercator projection
+	var data
+	var countries = {}
+	var fillCols = {}
+	fillCols["defaultFill"] = '#808080'
+	d3.json("<?php echo $article_map_data_path; ?>", function(dataset) {
+		data = dataset
+		//console.log(data)
+		data.forEach(function(d, i) {
+			//
+			fillCols[data[i].label] = data[i].color
+			//console.log(fillCols)
+			//create Label
+			tmp1 = data[i].label
+			//console.log(tmp1)
+			//create fillKey
+			tmp2 = {fillKey: data[i].label, count: data[i].count}
+			//console.log(tmp2)
+			//add label : {fillKey: key} to object
+			countries[tmp1] = tmp2
+			//console.log(countries)
+		});
+
+	   //creates map with generated fill and data
+		var map = new Datamap({
+			scope: 'world',
+			element: document.getElementById('map'),
+			projection: 'mercator',
+      //TODO fix responsive behavior
+      responsive: true,
+      height: null,
+			fills: fillCols,
+			data: countries,
+			geographyConfig: {
+				popupTemplate: function(geo, data) {
+				 var count
+				 if (data == null) {count = 0}
+				 else {count = data.count}
+					return ['<div class="hoverinfo"><strong>',
+							'Links from ' + geo.properties.name,
+							': ' + count,
+							'</strong></div>'].join('');
+            }
+			}
+		})
+
+      })
+
+    // resize map
+    window.addEventListener('resize', function() {
+        map.resize();
+    });
+     </script>
 
     <script>
 	var data;
 
 	//var article_counts_path = article_path;
 
-	d3.json(article_counts_path, function(dataset) {
+	d3.json("<?php echo $article_counts_path; ?>", function(dataset) {
     data = dataset;
 
 	var width = 1000,
@@ -121,7 +180,7 @@
 	  });
     </script>
     <script>
-        d3.json(article_analysis_path, function (error, data){
+        d3.json("<?php echo $article_analysis_path; ?>", function (error, data){
 
 	function tabulate(data, columns) {
 		var table = d3.select('#table').append('table')
