@@ -4,7 +4,6 @@ import collections
 import os
 import json
 import psutil
-import urllib
 
 from wikiwhere.main.article_extraction import ArticleExtraction
 from wikiwhere.utils import json_writer
@@ -29,10 +28,10 @@ if __name__ == "__main__":
             python_process_count += 1
 
     # get article url
-    article_url_encoded =  sys.argv[1]
-    article_url =  urllib.unquote(article_url_encoded).decode('utf8') 
+    article_url =  sys.argv[1]
+#    article_url =  urllib.unquote(article_url_encoded).decode('utf8')
 
-    
+
     if "wikipedia.org" not in article_url:
         print "not wiki"
         sys.exit(0)
@@ -61,13 +60,19 @@ if __name__ == "__main__":
 
     #print language
 
-    language_path = os.path.join("data","articles",language)
-    article_feature_path = os.path.join(language_path,title+".json").encode("utf8")
+
+    language_path = os.path.join("articles",language)
+    article_path = os.path.join(language_path,title)
+
+    if not os.path.exists(article_path):
+        os.makedirs(article_path)
+
+    article_analysis_path = os.path.join(article_path,"analysis.json")
 
     # TODO change name
-    article_count_path = os.path.join(language_path,title+"-counts-classification-general.json").encode("utf8")
+    article_classification_general_count_path = os.path.join(article_path,"counts-classification-general.json")
 
-    if new_crawl or not os.path.isfile(article_feature_path):
+    if new_crawl or not os.path.isfile(article_analysis_path):
         # exit of too many python programs are already running
         if python_process_count > max_python_processes:
            print "busy"
@@ -87,8 +92,8 @@ if __name__ == "__main__":
 
         if len(collected_features_array) > 0:
             # write generated file
-            json_writer.write_json_file(collected_features_array, article_feature_path)
-            json_writer.write_json_file(classification_general_counts_array, article_count_path)
+            json_writer.write_json_file(collected_features_array, article_analysis_path)
+            json_writer.write_json_file(classification_general_counts_array, article_classification_general_count_path)
         else:
             print "empty"
             sys.exit(0)
@@ -97,5 +102,4 @@ if __name__ == "__main__":
     #with open(article_path) as data_file:
     #    data = json.load(data_file)
 
-    print article_feature_path
-
+    print article_path

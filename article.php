@@ -50,7 +50,8 @@
 
     <script>
       var article_path = '<?php echo $article_path; ?>';
-      var article_counts_path = article_path.replace(".json","-counts-classification-general.json");
+      var article_analysis_path = article_path.concat("/analysis.json");
+      var article_counts_path = article_path.concat("/counts-classification-general.json");
     </script>
     <script>
 	var data;
@@ -107,7 +108,7 @@
 	  });
     </script>
     <script>
-        d3.json(article_path, function (error, data){
+        d3.json(article_analysis_path, function (error, data){
 
 	function tabulate(data, columns) {
 		var table = d3.select('#table').append('table')
