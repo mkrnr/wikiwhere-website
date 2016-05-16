@@ -28,7 +28,7 @@
       <!-- Main component for a primary marketing message or call to action -->
         <div class="row text-center">
           <div class="col-md-6 col-md-offset-3">
-            <h2>Article Analysis</h2>
+            <h1>Article Analysis</h1>
           </div>
         </div>
         <form action="load.php" method="get" class="text-center">

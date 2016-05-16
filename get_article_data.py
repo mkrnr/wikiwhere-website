@@ -73,6 +73,8 @@ if __name__ == "__main__":
 
     article_info_path = os.path.join(article_path,"info.json")
 
+    article_plots_redirect_path = os.path.join(article_path,"visualization-redirect.php")
+
     if new_crawl or not os.path.isfile(article_analysis_path):
         # exit of too many python programs are already running
         if python_process_count > max_python_processes:
@@ -86,9 +88,12 @@ if __name__ == "__main__":
         classification_general_counts = count_generation.generate_counts(collected_features_array, "classification-general")
         classification_general_counts_array = count_generation.get_as_array(classification_general_counts)
         
+        # get execution date
         now = datetime.datetime.now()
         time_info = {}
         time_info["analysis-date"]= now.strftime("%Y-%m-%d")
+        
+        
 
         # generate directory if it doesn't exist
         if not os.path.exists(language_path):
@@ -99,6 +104,13 @@ if __name__ == "__main__":
             json_writer.write_json_file(collected_features_array, article_analysis_path)
             json_writer.write_json_file(classification_general_counts_array, article_classification_general_count_path)
             json_writer.write_json_file(time_info, article_info_path)
+
+            # write php redirect file
+            redirect_string = "<?php header(\"Location: http://wikiwhere.west.uni-koblenz.de/article.php?url="+article_url+"\"); ?>"
+            text_file = open(article_plots_redirect_path, "w")
+            text_file.write(redirect_string)
+            text_file.close()
+
         else:
             print "empty"
             sys.exit(0)

@@ -18,7 +18,7 @@
       56072 Koblenz
       </p>
       <h2>Kontakt:</h2>
-      <table ><tr><td style="padding:0px 5px 0px 0px  ">E-Mail: </td>
+      <table ><tr><td style="padding:0px 5px 0px 0px">E-Mail:</td>
       <td>mkoerner@uni-koblenz.de</td>
       </tr></table>
       <h2>Haftungsausschluss (Disclaimer)</h2>
