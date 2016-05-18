@@ -3,10 +3,12 @@
 
 wikiwhere
 _h5ai
-
-data
 articles
 fonts
+
+data/*
+!data/images
+
 
 css/*
 !css/custom.css

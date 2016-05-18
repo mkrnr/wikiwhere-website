@@ -45,6 +45,7 @@
         href="#" onclick="toJson();return false;">Get JSON file</a>
 
     <div id="map" align="center"></div>
+    <div id="gradient" align="center"><img src="data/images/heatmap-gradient.png"/></div>
     <div id="bar" align="center"></div>
     <div id="table" align="center"></div>
     </div>
