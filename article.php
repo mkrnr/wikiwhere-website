@@ -49,7 +49,25 @@
         href="#" onclick="toJson();return false;">Get JSON file</a>
 
     <div id="map" style="position: relative; "></div>
-    <div id="gradient" style="width: 100%;"><img src="data/images/heatmap-gradient.png"/></div>
+    <div  id="gradient" >
+      <table  id="gradient-table">
+        <tbody>
+          <tr>
+            <td >
+             low
+            </td >
+            <td style="text-align:right;">
+              high
+            </td >
+          </tr>
+          <tr>
+            <td colspan="2">
+              <img style="width:100%" src="data/images/heatmap-gradient.png" />
+            </td >
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <div id="bar" ></div>
     <div id="table" class="table-responsive"></div>
     </div>

@@ -36,6 +36,14 @@
   display: none;
 }
 
+#gradient  {
+  width: 25%;
+}
+
+table#gradient-table  {
+  table-layout:fixed;
+  width: 100%;
+}
 
 /* fixing the table */
 .table {
