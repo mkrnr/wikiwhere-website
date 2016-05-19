@@ -18,11 +18,14 @@
 
     <script type="text/javascript" src="js/d3.js"></script>
 
-    <!-- TODO host ourself -->
-    <script src="http://d3js.org/topojson.v1.min.js"></script>
-    <script src="http://datamaps.github.io/scripts/datamaps.world.min.js?v=1"></script>
+    <!-- source: http://d3js.org/topojson.v1.min.js -->
+    <script type="text/javascript" src="js/topojson.v1.min.js"></script>
 
-    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <!-- source: http://datamaps.github.io/scripts/datamaps.world.min.js?v=1 -->
+    <script type="text/javascript" src="js/datamaps.world.min.js"></script>
+
+    <!-- source: http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js -->
+    <script type="text/javascript" src="js/d3.tip.v0.6.3.js"></script>
 
     <script>
       function toJson() {
@@ -38,16 +41,17 @@
 <?php echo file_get_contents("templates/header.php") ?>
 
     <div class="container">
-      <h1><?php echo $article_url; ?></h1>
+      <h1>Article Analysis</h1>
       <div id="analysis-date"></div>
+      <h3>Article: <?php echo $article_url; ?></h3>
 
       <a title="Click to go to JSON file"
         href="#" onclick="toJson();return false;">Get JSON file</a>
 
-    <div id="map" align="center"></div>
-    <div id="gradient" align="center"><img src="data/images/heatmap-gradient.png"/></div>
-    <div id="bar" align="center"></div>
-    <div id="table" align="center"></div>
+    <div id="map" style="position: relative; "></div>
+    <div id="gradient" style="width: 100%;"><img src="data/images/heatmap-gradient.png"/></div>
+    <div id="bar" ></div>
+    <div id="table" class="table-responsive"></div>
     </div>
     <?php include "php/get-article.php";?>
 
@@ -69,196 +73,182 @@
     ?>
 
     <script>
-      document.getElementById("analysis-date").innerHTML = "Analysis from <?php echo $analysis_date; ?>";
+      document.getElementById("analysis-date").innerHTML = "from <?php echo $analysis_date; ?>";
     </script>
 
-     <script>
-       //basic map config with custom fills, mercator projection
-	var data
-	var countries = {}
-	var fillCols = {}
-	fillCols["defaultFill"] = '#808080'
-	d3.json("<?php echo $article_map_data_path; ?>", function(dataset) {
-		data = dataset
-		//console.log(data)
-		data.forEach(function(d, i) {
-			//
-			fillCols[data[i].label] = data[i].color
-			//console.log(fillCols)
-			//create Label
-			tmp1 = data[i].label
-			//console.log(tmp1)
-			//create fillKey
-			tmp2 = {fillKey: data[i].label, count: data[i].count}
-			//console.log(tmp2)
-			//add label : {fillKey: key} to object
-			countries[tmp1] = tmp2
-			//console.log(countries)
-		});
+    <script>
 
-	   //creates map with generated fill and data
-		var map = new Datamap({
-			scope: 'world',
-			element: document.getElementById('map'),
-			projection: 'mercator',
-      //TODO fix responsive behavior
-      responsive: true,
-      height: null,
-			fills: fillCols,
-			data: countries,
-			geographyConfig: {
-				popupTemplate: function(geo, data) {
-				 var count
-				 if (data == null) {count = 0}
-				 else {count = data.count}
-					return ['<div class="hoverinfo"><strong>',
-							'Links from ' + geo.properties.name,
-							': ' + count,
-							'</strong></div>'].join('');
+      //basic map config with custom fills, mercator projection
+	    var data
+	    var countries = {}
+	    var fillCols = {}
+	    fillCols["defaultFill"] = '#808080'
+	    d3.json("<?php echo $article_map_data_path; ?>", function(dataset) {
+	    	data = dataset
+	    	//console.log(data)
+	    	data.forEach(function(d, i) {
+	    		//
+	    		fillCols[data[i].label] = data[i].color
+	    		//console.log(fillCols)
+	    		//create Label
+	    		tmp1 = data[i].label
+	    		//console.log(tmp1)
+	    		//create fillKey
+	    		tmp2 = {fillKey: data[i].label, count: data[i].count}
+	    		//console.log(tmp2)
+	    		//add label : {fillKey: key} to object
+	    		countries[tmp1] = tmp2
+	    		//console.log(countries)
+	    	});
+
+
+	       //creates map with generated fill and data
+	    	var map = new Datamap({
+	    		scope: 'world',
+	    		element: document.getElementById('map'),
+	    		projection: 'mercator',
+          responsive: true,
+	    		fills: fillCols,
+	    		data: countries,
+	    		geographyConfig: {
+	    			popupTemplate: function(geo, data) {
+	    			 var count
+	    			 if (data == null) {count = 0}
+	    			 else {count = data.count}
+	    				return ['<div class="hoverinfo"><strong>',
+	    						'Links from ' + geo.properties.name,
+	    						': ' + count,
+	    						'</strong></div>'].join('');
             }
-			}
-		})
+	    		}
+	    	});
 
-      })
-
-    // resize map
-    window.addEventListener('resize', function() {
-        map.resize();
-    });
-     </script>
-
-     <script>
-
-     var margin = {top: 40, right: 20, bottom: 30, left: 40},
-         width = 960 - margin.left - margin.right,
-         height = 500 - margin.top - margin.bottom;
-
-     ;
-
-     var x = d3.scale.ordinal()
-         .rangeRoundBands([0, width], .1);
-
-     var y = d3.scale.linear()
-         .range([height, 0]);
-
-     var xAxis = d3.svg.axis()
-         .scale(x)
-         .orient("bottom");
-
-     var yAxis = d3.svg.axis()
-         .scale(y)
-         .orient("left")
-
-
-     var tip = d3.tip()
-       .attr('class', 'd3-tip')
-       .offset([-10, 0])
-       .html(function(d) {
-         return "<strong>Frequency:</strong> <span style='color:red'>" + d.count + "</span>";
-       })
-
-     var svg = d3.select("#bar").append("svg")
-         .attr("width", width + margin.left + margin.right)
-         .attr("height", height + margin.top + margin.bottom)
-       .append("g")
-         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-     svg.call(tip);
-
-     d3.json("<?php echo $article_counts_path; ?>", function(data) {
-       x.domain(data.map(function(d) { return d.label; }));
-       y.domain([0, d3.max(data, function(d) { return d.count; })]);
-
-       svg.append("g")
-           .attr("class", "x axis")
-           .attr("transform", "translate(0," + height + ")")
-           .call(xAxis);
-
-       svg.append("g")
-           .attr("class", "y axis")
-           .call(yAxis)
-         .append("text")
-           .attr("transform", "rotate(-90)")
-           .attr("y", 6)
-           .attr("dy", ".71em")
-           .style("text-anchor", "end")
-           .text("Frequency");
-
-       svg.selectAll(".bar")
-           .data(data)
-         .enter().append("rect")
-           .attr("class", "bar")
-           .attr("x", function(d) { return x(d.label); })
-           .attr("width", x.rangeBand())
-           .attr("y", function(d) { return y(d.count); })
-           .attr("height", function(d) { return height - y(d.count); })
-           .on('mouseover', tip.show)
-           .on('mouseout', tip.hide)
-
-     });
-
-     function type(d) {
-       d.count = +d.count;
-       return d;
-     }
-
-     </script>
-
-
-
-    <script>
-        d3.json("<?php echo $article_analysis_path; ?>", function (error, data){
-
-	function tabulate(data, columns) {
-		var table = d3.select('#table').append('table')
-		var thead = table.append('thead')
-		var	tbody = table.append('tbody');
-
-		// append the header row
-		thead.append('tr')
-		  .selectAll('th')
-		  .data(columns).enter()
-		  .append('th')
-		    .text(function (column) { return column; });
-
-		// create a row for each object in the data
-		var rows = tbody.selectAll('tr')
-		  .data(data)
-		  .enter()
-		  .append('tr');
-
-		// create a cell in each row for each column
-		var cells = rows.selectAll('td')
-		  .data(function (row) {
-		    return columns.map(function (column) {
-		      return {column: column, value: row[column]};
-		    });
-		  })
-		  .enter()
-		  .append('td')
-		    .text(function (d) { return d.value; });
-
-	  return table;
-	}
-	// render the table(s)
-	var table = tabulate(data, ['url', 'classification', 'classification-general', 'ip-location', 'tld-location', 'website-language', 'wikipedia-language']); // 7 column table
-
-	});
-
+        window.addEventListener('resize', function() {
+          map.resize();
+        });
+      });
     </script>
-    <script>
-      //var article_path = '<?php echo $article_path; ?>';
-      //document.write("<p>Loaded via Python, displayed via JS: </p>");
-      //try {
-      //  article_json_parsed = JSON.parse(article_json_string);
-      //} catch (e) {
-      //  document.write("JSON is not valid");
-      //}
-      //document.write(article_path);
 
-      // print out json:
-      //document.write('<pre id="json"></pre>');
-      //document.getElementById("json").innerHTML = JSON.stringify(article_json_parsed, undefined, 2);
+    <script>
+      var margin = {top: 40, right: 20, bottom: 30, left: 40};
+      var width = 960 - margin.left - margin.right;
+      var height = 500 - margin.top - margin.bottom;
+
+
+      var x = d3.scale.ordinal()
+        .rangeRoundBands([0, width], .1);
+
+      var y = d3.scale.linear()
+        .range([height, 0]);
+
+      var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom");
+
+      var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left")
+
+      var tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+          return "<strong>Frequency:</strong> <span style='color:red'>" + d.count + "</span>";
+        })
+
+      var svg = d3.select("#bar").append("svg")
+        .attr("preserveAspectRatio", "xMinYMin meet")
+        .attr("viewBox", "0 0 960 500")
+        .append("g")
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      svg.call(tip);
+
+      d3.json("<?php echo $article_counts_path; ?>", function(data) {
+        x.domain(data.map(function(d) { return d.label; }));
+        y.domain([0, d3.max(data, function(d) { return d.count; })]);
+
+        svg.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0," + height + ")")
+          .call(xAxis);
+
+        svg.append("g")
+          .attr("class", "y axis")
+          .call(yAxis)
+
+        svg.selectAll(".bar")
+          .data(data)
+          .enter().append("rect")
+            .attr("class", "bar")
+            .attr("x", function(d) { return x(d.label); })
+            .attr("width", x.rangeBand())
+            .attr("y", function(d) { return y(d.count); })
+            .attr("height", function(d) { return height - y(d.count); })
+      });
+
+      function type(d) {
+        d.count = +d.count;
+        return d;
+      }
+    </script>
+
+    <script>
+      d3.json("<?php echo $article_analysis_path; ?>", function (error, data){
+
+        function tabulate(data, columns) {
+          var table = d3.select('#table').append('table').classed("table table-bordered table-condensed table-hover",true);
+          var thead = table.append('thead');
+          var	tbody = table.append('tbody');
+
+          // append the header row
+          thead.append('tr')
+            .selectAll('th')
+            .data(columns).enter()
+            .append('th')
+             .text(function (column) {
+
+               // custom mapping for thead text
+               switch(column) {
+                 case "url":
+                   return "URL";
+                 case "classification":
+                   return "Country Classification";
+                 case "classification-general":
+                   return "General Classification";
+                 case "ip-location":
+                   return "IP Location";
+                 case "tld-location":
+                   return "TLD Location";
+                 case "website-language":
+                   return "Page Language";
+                 default:
+                   return column;
+               }
+             });
+
+          // create a row for each object in the data
+          var rows = tbody.selectAll('tr')
+            .data(data)
+            .enter()
+            .append('tr');
+
+          // create a cell in each row for each column
+          var cells = rows.selectAll('td')
+     	      .data(function (row) {
+     	        return columns.map(function (column) {
+     	          return {column: column, value: row[column]};
+     	        });
+     	      })
+     	      .enter()
+     	      .append('td')
+     	        .text(function (d) { return d.value; });
+
+          return table;
+        }
+        // render the table(s)
+        var table = tabulate(data, ['url', 'classification', 'classification-general', 'ip-location', 'tld-location', 'website-language' ]); // 7 column table
+      });
     </script>
 
 <?php echo file_get_contents("templates/footer.php") ?>
