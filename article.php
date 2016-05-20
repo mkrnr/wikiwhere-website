@@ -90,7 +90,7 @@
 
     <?php
       $article_analysis_path = $article_path . "/analysis.json";
-      $article_counts_path = $article_path . "/counts-classification-general.json";
+      $article_counts_path = $article_path . "/counts-classification-general-fixed.json";
       $article_map_data_path = $article_path . "/map-data.json";
       $article_info_path = $article_path . "/info.json";
 
