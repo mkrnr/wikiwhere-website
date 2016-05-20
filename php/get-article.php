@@ -2,7 +2,6 @@
   $handle = @fopen($article_url,'r');
 
   if($handle !== false){
-    $article_url_encoded = urlencode ($article_url);
     if($new_crawl == true){
       $article_path = exec($python.' get_article_data.py ' . $article_url_encoded . ' ' . $new_crawl);
     }else{

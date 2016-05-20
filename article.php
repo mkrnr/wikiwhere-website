@@ -7,6 +7,14 @@
 
     <?php
       $article_url = filter_input(INPUT_GET, 'url');
+
+      if( urldecode($article_url) == $article_url){
+        $article_url_encoded = urlencode ($article_url);
+      }else{
+        $article_url_encoded = $article_url;
+        $article_url = urldecode($article_url);
+      }
+
       $new_crawl=filter_input(INPUT_GET, 'new-crawl');
 
       $python=filter_input(INPUT_GET, 'python');
