@@ -66,9 +66,6 @@ if __name__ == "__main__":
     language_path = os.path.join("articles",language)
     article_path = os.path.join(language_path,title)
 
-    if not os.path.exists(article_path):
-        os.makedirs(article_path)
-
     article_analysis_path = os.path.join(article_path,"analysis.json")
     article_classification_general_count_path = os.path.join(article_path,"counts-classification-general.json")
     article_map_data_path = os.path.join(article_path,"map-data.json")
@@ -102,11 +99,15 @@ if __name__ == "__main__":
         
         
 
-        # generate directory if it doesn't exist
-        if not os.path.exists(language_path):
-            os.makedirs(language_path)
 
         if len(collected_features_array) > 0:
+
+            # generate directories if they don't exist
+            if not os.path.exists(article_path):
+                os.makedirs(article_path)
+            if not os.path.exists(language_path):
+                os.makedirs(language_path)
+
             # write generated files
             json_writer.write_json_file(collected_features_array, article_analysis_path)
             json_writer.write_json_file(classification_general_counts_array, article_classification_general_count_path)
