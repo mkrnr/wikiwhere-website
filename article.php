@@ -6,14 +6,10 @@
     <script type="text/javascript" src="js/url-mod.js"></script>
 
     <?php
-      $article_url = filter_input(INPUT_GET, 'url');
+      $article_url_input = filter_input(INPUT_GET, 'url');
 
-      if( urldecode($article_url) == $article_url){
-        $article_url_encoded = urlencode ($article_url);
-      }else{
-        $article_url_encoded = $article_url;
-        $article_url = urldecode($article_url);
-      }
+      $article_url = urldecode ($article_url_input);
+      $article_url_encoded = urlencode ($article_url);
 
       $new_crawl=filter_input(INPUT_GET, 'new-crawl');
 
