@@ -55,7 +55,9 @@ if __name__ == "__main__":
     model_data_path = os.path.join(data_path,"models")
 
     languages = ["de", "en","es","fr","general","it","nl","sv","uk"]
+    features = ["ip-location","tld-location","website-language"]
     article_extraction = ArticleExtraction(geodatabase_path,ianadatabase_path,wfbdatabase_path,model_data_path,languages)
+    
     count_generation = CountGeneration()
     map_data_generation = MapDataGeneration()
 
@@ -65,11 +67,6 @@ if __name__ == "__main__":
 
     language_path = os.path.join("articles",language)
     article_path = os.path.join(language_path,title)
-
-    article_analysis_path = os.path.join(article_path,"analysis.json")
-    article_classification_general_count_path = os.path.join(article_path,"counts-classification-general.json")
-    article_map_data_path = os.path.join(article_path,"map-data.json")
-    
 
     article_info_path = os.path.join(article_path,"info.json")
     article_plots_redirect_path = os.path.join(article_path,"visualization-redirect.php")
@@ -82,22 +79,9 @@ if __name__ == "__main__":
         # generate new article
         collected_features = article_extraction.collect_features(article_url)
         collected_features_with_prediction = article_extraction.add_predictions(language,collected_features)
-        collected_features_array = article_extraction.get_as_array(collected_features_with_prediction)
-
-        classification_general_counts = count_generation.generate_counts(collected_features_array, "classification-general")
-        classification_general_counts_array = count_generation.get_as_array(classification_general_counts)
-        
-
-        map_data = map_data_generation.generate_map_data_array(collected_features_array,"classification-general")
-        print map_data
-        
-        # get execution date
-        now = datetime.datetime.now()
-        time_info = {}
-        time_info["analysis-date"]= now.strftime("%Y-%m-%d")
-        time_info["analysis-time"]= now.strftime("%H:%M:%S")
-        
-        
+        collected_features_with_fixed_outliers = article_extraction.fix_outliers(collected_features_with_prediction,"classification","classification-fixed",features)
+        collected_features_with_fixed_outliers = article_extraction.fix_outliers(collected_features_with_fixed_outliers,"classification-general","classification-general-fixed",features)
+        collected_features_array = article_extraction.get_as_array(collected_features_with_fixed_outliers)
 
 
         if len(collected_features_array) > 0:
@@ -108,10 +92,27 @@ if __name__ == "__main__":
             if not os.path.exists(language_path):
                 os.makedirs(language_path)
 
-            # write generated files
+            article_analysis_path = os.path.join(article_path,"analysis.json")
             json_writer.write_json_file(collected_features_array, article_analysis_path)
-            json_writer.write_json_file(classification_general_counts_array, article_classification_general_count_path)
+
+            count_features = ["ip-location","tld-location","website-language","classification-fixed","classification-general-fixed"]
+            for count_feature in count_features:
+                classification_general_counts = count_generation.generate_counts(collected_features_array, count_feature)
+                classification_general_counts_array = count_generation.get_as_array(classification_general_counts)
+
+                article_count_path = os.path.join(article_path,"counts-"+count_feature+".json")
+                json_writer.write_json_file(classification_general_counts_array, article_count_path)
+            
+            # generate map data
+            map_data = map_data_generation.generate_map_data_array(collected_features_array,"classification-general-fixed")
+            article_map_data_path = os.path.join(article_path,"map-data.json")
             json_writer.write_json_file(map_data, article_map_data_path)
+
+            # get execution date
+            now = datetime.datetime.now()
+            time_info = {}
+            time_info["analysis-date"]= now.strftime("%Y-%m-%d")
+            time_info["analysis-time"]= now.strftime("%H:%M:%S")
             json_writer.write_json_file(time_info, article_info_path)
 
             # write php redirect file
@@ -123,6 +124,5 @@ if __name__ == "__main__":
         else:
             print "empty"
             sys.exit(0)
-
 
     print article_path

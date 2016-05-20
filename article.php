@@ -238,9 +238,9 @@
                switch(column) {
                  case "url":
                    return "URL";
-                 case "classification":
+                 case "classification-fixed":
                    return "Country Classification";
-                 case "classification-general":
+                 case "classification-general-fixed":
                    return "General Classification";
                  case "ip-location":
                    return "IP Location";
@@ -273,7 +273,7 @@
           return table;
         }
         // render the table(s)
-        var table = tabulate(data, ['url', 'classification', 'classification-general', 'ip-location', 'tld-location', 'website-language' ]); // 7 column table
+        var table = tabulate(data, ['url', 'classification-fixed', 'classification-general-fixed', 'ip-location', 'tld-location', 'website-language' ]); // 7 column table
       });
     </script>
 
