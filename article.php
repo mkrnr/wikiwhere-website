@@ -43,33 +43,38 @@
     <div class="container">
       <h1>Article Analysis</h1>
       <div id="analysis-date"></div>
-      <h3>Article: <?php echo $article_url; ?></h3>
+      <h2 id="analysis-url">Article: <a href="<?php echo $article_url; ?>"><?php echo $article_url; ?></a></h2>
 
       <a title="Click to go to JSON file"
         href="#" onclick="toJson();return false;">Get JSON file</a>
 
-    <div id="map" style="position: relative; "></div>
-    <div  id="gradient" >
-      <table  id="gradient-table">
-        <tbody>
-          <tr>
-            <td >
-             low
-            </td >
-            <td style="text-align:right;">
-              high
-            </td >
-          </tr>
-          <tr>
-            <td colspan="2">
-              <img style="width:100%" src="data/images/heatmap-gradient.png" />
-            </td >
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div id="bar" ></div>
-    <div id="table" class="table-responsive"></div>
+      <h3 class="m-t-30">Heatmap</h3>
+      <p>Displays the general classification results.</p>
+      <div id="map" style="position: relative; "></div>
+      <div  id="gradient" >
+        <table  id="gradient-table">
+          <tbody>
+            <tr>
+              <td >
+               low
+              </td >
+              <td style="text-align:right;">
+                high
+              </td >
+            </tr>
+            <tr>
+              <td colspan="2">
+                <img style="width:100%" src="data/images/heatmap-gradient.png" />
+              </td >
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 class="m-t-40">Barcharts</h3>
+      <h4>General Classification</h4>
+      <div id="bar"></div>
+      <h3 class="m-t-40">Detailed Results</h3>
+      <div id="table" class="table-responsive"></div>
     </div>
     <?php include "php/get-article.php";?>
 
@@ -95,7 +100,6 @@
     </script>
 
     <script>
-
       //basic map config with custom fills, mercator projection
 	    var data
 	    var countries = {}
@@ -148,7 +152,7 @@
     </script>
 
     <script>
-      var margin = {top: 40, right: 20, bottom: 30, left: 40};
+      var margin = {top: 0, right: 20, bottom: 30, left: 30};
       var width = 960 - margin.left - margin.right;
       var height = 500 - margin.top - margin.bottom;
 

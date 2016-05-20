@@ -1,8 +1,10 @@
+/* general formatting functions */
 .m-t-7  { margin-top:7px; }
 .m-t-10 { margin-top:10px; }
 .m-t-15 { margin-top:15px; }
 .m-t-17 { margin-top:17px; }
 .m-t-30 { margin-top:30px; }
+.m-t-40 { margin-top:40px; }
 
 .m-r-7  { margin-right:7px; }
 .m-r-10 { margin-right:10px; }
@@ -10,14 +12,23 @@
 .m-r-17 { margin-right:17px; }
 .m-r-30 { margin-right:30px; }
 
+/* index.php formatting */
+
 .col-centered{
   float: none;
   margin: 0 auto;
 }
 
-.analysis-input{
+#analysis-input{
   padding-top: 80px !important;
 }
+
+/* article.php formatting */
+
+#analysis-url{
+  word-wrap: break-word;
+}
+
 
 
 /* for bar chart */
