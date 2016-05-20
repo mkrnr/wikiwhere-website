@@ -1,4 +1,5 @@
 /* general formatting functions */
+
 .m-t-7  { margin-top:7px; }
 .m-t-10 { margin-top:10px; }
 .m-t-15 { margin-top:15px; }
@@ -12,6 +13,7 @@
 .m-r-17 { margin-right:17px; }
 .m-r-30 { margin-right:30px; }
 
+
 /* index.php formatting */
 
 .col-centered{
@@ -23,12 +25,17 @@
   padding-top: 80px !important;
 }
 
+
 /* article.php formatting */
 
 #analysis-url{
   word-wrap: break-word;
 }
 
+#gradient-image{
+  vertical-align:top;
+  width:100%;
+}
 
 
 /* for bar chart */
@@ -56,6 +63,7 @@ table#gradient-table  {
   width: 100%;
 }
 
+
 /* fixing the table */
 .table {
   table-layout: fixed;
@@ -74,6 +82,7 @@ table#gradient-table  {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
 
 /* for responsive bar chart */
 

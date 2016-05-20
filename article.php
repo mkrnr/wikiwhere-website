@@ -64,7 +64,7 @@
             </tr>
             <tr>
               <td colspan="2">
-                <img style="width:100%" src="data/images/heatmap-gradient.png" />
+                <img id="gradient-image" src="data/images/heatmap-gradient.png" />
               </td >
             </tr>
           </tbody>
