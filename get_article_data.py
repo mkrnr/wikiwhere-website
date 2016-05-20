@@ -71,6 +71,8 @@ if __name__ == "__main__":
     article_info_path = os.path.join(article_path,"info.json")
     article_plots_redirect_path = os.path.join(article_path,"visualization-redirect.php")
 
+    article_analysis_path = os.path.join(article_path,"analysis.json")
+
     if new_crawl or not os.path.isfile(article_analysis_path):
         # exit of too many python programs are already running
         if python_process_count > max_python_processes:
@@ -92,7 +94,6 @@ if __name__ == "__main__":
             if not os.path.exists(language_path):
                 os.makedirs(language_path)
 
-            article_analysis_path = os.path.join(article_path,"analysis.json")
             json_writer.write_json_file(collected_features_array, article_analysis_path)
 
             count_features = ["ip-location","tld-location","website-language","classification-fixed","classification-general-fixed"]
