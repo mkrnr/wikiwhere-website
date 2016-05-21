@@ -55,9 +55,9 @@
       <h2 id="analysis-url">Article: <a href="<?php echo $article_url; ?>"><?php echo $article_url; ?></a></h2>
 
       <a title="Click to go to JSON file"
-        href="#" onclick="toJson();return false;">Get JSON file</a>
+        href="#" onclick="toJson();return false;">Get analysis results in JSON format</a>
 
-      <h3 class="m-t-30">Heatmap</h3>
+      <h3 class="m-t-30">Heat Map</h3>
       <p>Displays the general classification results.</p>
       <div id="heat-map" style="position: relative; "></div>
       <div  id="gradient" >
@@ -79,7 +79,7 @@
           </tbody>
         </table>
       </div>
-      <h3 class="m-t-40">Barcharts</h3>
+      <h3 class="m-t-40">Bar Charts</h3>
       <h4>General Classification</h4>
       <div id="general-classification-bar"></div>
       <h4>Country Classification</h4>
