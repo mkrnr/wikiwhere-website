@@ -15,5 +15,8 @@ css/*
 
 
 js/*
+!js/analysis-table.js
+!js/bar-chart.js
+!js/heat-map.js
 !js/url-mod.js
 
