@@ -219,11 +219,12 @@
       }
     </script>
 
+
     <script>
       d3.json("<?php echo $article_analysis_path; ?>", function (error, data){
 
         function tabulate(data, columns) {
-          var table = d3.select('#table').append('table').classed("table table-bordered table-condensed table-hover",true);
+          var table = d3.select('#table').append('table').classed("table table-bordered table-condensed table-hover",true).attr("id","analysis-table");
           var thead = table.append('thead');
           var	tbody = table.append('tbody');
 
@@ -269,6 +270,14 @@
      	      .enter()
      	      .append('td')
      	        .text(function (d) { return d.value; });
+
+
+          var analysisTable = document.getElementById("analysis-table");
+          for(var rowId = 1; rowId < analysisTable.rows.length; rowId++){
+            var firstCellInRow = analysisTable.rows[rowId].cells[0];
+            cellUrl = firstCellInRow.innerHTML;
+            firstCellInRow.innerHTML = "<a href=\"" + cellUrl + "\">"+cellUrl+"</a>";
+          }
 
           return table;
         }
