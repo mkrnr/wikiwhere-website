@@ -85,7 +85,6 @@ if __name__ == "__main__":
         collected_features_with_fixed_outliers = article_extraction.fix_outliers(collected_features_with_fixed_outliers,"classification-general","classification-general-fixed",features)
         collected_features_array = article_extraction.get_as_array(collected_features_with_fixed_outliers)
 
-
         if len(collected_features_array) > 0:
 
             # generate directories if they don't exist

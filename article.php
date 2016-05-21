@@ -35,10 +35,9 @@
     <!-- source: http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js -->
     <script type="text/javascript" src="js/d3.tip.v0.6.3.js"></script>
 
-
     <script>
       function toJson() {
-        var url = window.location.href ;
+        var url = window.location.href;
         var load = url.replace("/article.php","/json.php");
         window.location = load;
       }

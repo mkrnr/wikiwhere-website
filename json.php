@@ -1,6 +1,8 @@
 <?php
-  $article_url = filter_input(INPUT_GET, 'url');
-  $new_crawl=filter_input(INPUT_GET, 'new-crawl');
+  $article_url_input = filter_input(INPUT_GET, 'url');
+
+  $article_url = urldecode ($article_url_input);
+  $article_url_encoded = urlencode ($article_url);
 
   $python=filter_input(INPUT_GET, 'python');
   if (!isset($python)){
