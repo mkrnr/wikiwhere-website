@@ -104,11 +104,11 @@
     <?php
       $article_analysis_path = $article_path . "/analysis.json";
 
-      $general_classification_counts_path = $article_path . "/counts-classification-general-fixed.json";
-      $country_classification_counts_path = $article_path . "/counts-classification-fixed.json";
-      $ip_location_counts_path = $article_path . "/counts-ip-location.json";
-      $tld_location_counts_path = $article_path . "/counts-tld-location.json";
-      $page_language_counts_path = $article_path . "/counts-website-language.json";
+      $general_classification_counts_path = $article_path . "/counts-classification-general-fixed-top-20.json";
+      $country_classification_counts_path = $article_path . "/counts-classification-fixed-top-20.json";
+      $ip_location_counts_path = $article_path . "/counts-ip-location-top-20.json";
+      $tld_location_counts_path = $article_path . "/counts-tld-location-top-20.json";
+      $page_language_counts_path = $article_path . "/counts-website-language-top-20.json";
 
       $article_map_data_path = $article_path . "/map-data.json";
       $article_info_path = $article_path . "/info.json";

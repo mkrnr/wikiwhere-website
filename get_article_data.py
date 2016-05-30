@@ -57,7 +57,7 @@ if __name__ == "__main__":
     languages = ["de", "en","es","fr","general","it","nl","sv","uk"]
     features = ["ip-location","tld-location","website-language"]
     article_extraction = ArticleExtraction(geodatabase_path,ianadatabase_path,wfbdatabase_path,model_data_path,languages)
-    
+
     count_generation = CountGeneration()
     map_data_generation = MapDataGeneration()
 
@@ -98,11 +98,11 @@ if __name__ == "__main__":
             count_features = ["ip-location","tld-location","website-language","classification-fixed","classification-general-fixed"]
             for count_feature in count_features:
                 classification_general_counts = count_generation.generate_counts(collected_features_array, count_feature)
-                classification_general_counts_array = count_generation.get_as_array(classification_general_counts)
+                classification_general_counts_array = count_generation.get_as_array(classification_general_counts, 20)
 
-                article_count_path = os.path.join(article_path,"counts-"+count_feature+".json")
+                article_count_path = os.path.join(article_path,"counts-"+count_feature+"-top-20.json")
                 json_writer.write_json_file(classification_general_counts_array, article_count_path)
-            
+
             # generate map data
             map_data = map_data_generation.generate_map_data_array(collected_features_array,"classification-general-fixed")
             article_map_data_path = os.path.join(article_path,"map-data.json")
