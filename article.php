@@ -78,7 +78,7 @@
           </tbody>
         </table>
       </div>
-      <h3 class="m-t-40">Bar Charts</h3>
+      <h3 class="m-t-40">Bar Charts (Top 20)</h3>
       <h4>General Classification</h4>
       <div id="general-classification-bar"></div>
       <h4>Country Classification</h4>
