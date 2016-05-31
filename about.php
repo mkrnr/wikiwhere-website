@@ -75,6 +75,7 @@
         In order to determine the language of a given Website, we first request the website content using the <a href="https://docs.python.org/2/library/urllib.html"><code>urllib</code> package</a>.
         The next step is extracting the actual textual content of the website out of the HTML code.
         This is done by first generating Markdown text using the <a href="https://pypi.python.org/pypi/html2text"><code>html2text</code> package</a> and then using the <a href="https://pypi.python.org/pypi/beautifulsoup4"><code>beautifulsoup</code> package</a> to extract the text from Markdown via another conversion to HTML.
+        After extracting the text we use the <a href="https://github.com/Mimino666/langdetect"><code>langdetect</code> package</a> for detecting the language.
 	    </p>
 	    <h3>DBpedia Location Extraction</h3>
         In order to gather a large amount of geo-locations for websites we used the <a href="http://dbpedia.org/sparql">DBpedia SPARQL endpoints</a>.
