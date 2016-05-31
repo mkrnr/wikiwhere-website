@@ -48,7 +48,7 @@
         We also built a general model that combines the data from all DBpedia knowledge bases.
         The Python modules for the data collection can be found in the <a href="https://github.com/mkrnr/wikiwhere/tree/master/wikiwhere/feature_extraction">feature_extraction</a> and <a href="https://github.com/mkrnr/wikiwhere/tree/master/wikiwhere/location_extraction">location_extraction</a> packages in our <a href="https://github.com/mkrnr/wikiwhere">wikiwhere Github repository</a>.
 	    </p>
-	    <h3>Top Level Domain Extraction</h3>
+	    <h3>IP Location Extraction</h3>
       <p>
         There exist several public APIs that return the geo-coordinates for a given IP.
         Our first implementation relied on the <a href="https://developers.google.com/maps/">Google Maps API</a>.
