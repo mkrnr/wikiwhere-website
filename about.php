@@ -121,9 +121,9 @@
       </p>
       <p>
         Table 1 shows the accuracy of the models. First we checked the accuracy over all the data we have.
-		    It is represented in the entry "All data".
+		    It is represented in the entry "All data - Model".
 		    Then we checked how well the models can handle difficult cases, when all the parameters disagree.
-		    It is represented in the entry "Difficult cases".
+		    It is represented in the entry "Difficult cases - Model".
 		    As the baseline we used the IP location.
       </p>
       <div class="row">
@@ -144,7 +144,7 @@
 		      		<th>CS</th>
 		      	</tr>
 		      	<tr>
-		      		<td>All data</td>
+		      		<td>All data - Model</td>
 		      		<td>81%</td>
 		      		<td>81%</td>
 		      		<td>91%</td>
@@ -157,7 +157,20 @@
 		      		<td>98%</td>
 		      	</tr>
 		      	<tr>
-		      		<td>Difficult cases</td>
+		      		<td>All data - IP only</td>
+		      		<td>61%</td>
+		      		<td>30%</td>
+		      		<td>62%</td>
+		      		<td>77%</td>
+		      		<td>29%</td>
+		      		<td>86%</td>
+		      		<td>73%</td>
+		      		<td>86%</td>
+		      		<td>81%</td>
+		      		<td>80%</td>
+		      	</tr>
+		      	<tr>
+		      		<td>Difficult cases - Model</td>
 		      		<td>77%</td>
 		      		<td>78%</td>
 		      		<td>86%</td>
@@ -169,19 +182,32 @@
 		      		<td>85%</td>
 		      		<td>93%</td>
 		      	</tr>
-		      </table>
+		      	<tr>
+              <td>Difficult cases - IP only</td>
+              <td>30%</td>
+              <td>57%</td>
+              <td>64%</td>
+              <td>25%</td>
+              <td>81%</td>
+              <td>66%</td>
+              <td>80%</td>
+              <td>74%</td>
+              <td>79%</td>
+              <td>53%</td>
+		      	</tr>
+          </table>
         </div>
         <div class="col-md-4"></div>
       </div>
 		  <p>
-		  Table 2 we presents the importance of each parameter of the learning models.
+		  Table 2 presents the importance of each parameter of the learning models.
 		  The number in each cell reflects how well a particular parameter can describe the variance of the ground truth.
 		  To obtain these data we calculated how often a particular parameter agrees with the ground truth.
 		  </p>
       <div class="row">
         <div class="col-md-6 table-responsive">
 		      <table class="table table-hover table-bordered" >
-		        <caption>Table 2. Parameters contribuation</caption>
+		        <caption>Table 2. Parameter contribution over all data</caption>
 		        	<tr>
 		        		<th>Model</th>
 		        		<th>IP<br> location</th>
