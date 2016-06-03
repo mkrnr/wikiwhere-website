@@ -8,6 +8,7 @@ fonts
 
 data/*
 !data/images
+!data/dbpedia-locations.rq
 
 
 css/*

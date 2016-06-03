@@ -65,19 +65,19 @@ table#gradient-table  {
 
 
 /* fixing the table */
-.table {
+.analysis-table {
   table-layout: fixed;
 }
 
-.table th {
+.analysis-table th {
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.table th:nth-child(1) {
+.analysis-table th:nth-child(1) {
   width: 45%;
 }
-.table td:nth-child(1) {
+.analysis-table td:nth-child(1) {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

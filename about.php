@@ -81,9 +81,11 @@
         In order to gather a large amount of geo-locations for websites we used the <a href="http://dbpedia.org/sparql">DBpedia SPARQL endpoints</a>.
         The SPARQL requests were made with the <a href="https://pypi.python.org/pypi/SPARQLWrapper/1.7.6"><code>SPARQLWrapper</code> package</code></a>.
         The first part of getting a location is to associate a given URL to a DBpedia entity.
-        For this entity we then query for it's, location, location city, or location of it's parent company.
+        For this entity we then query for it's location, location city, or the location of it's parent company.
+        The SPARQL query that we used can be found <a href="http://wikiwhere.west.uni-koblenz.de/data/dbpedia-locations.rq">here</a>.
         In cases where we retrieve more than one location for a URL we perform a majority voting.
-        Using this method, we were able to retrieve, for example, locations for 149731 URLs using the English DBpedia SPARQL endpoint.
+        For the English DBpedia, a majority voting was necessary for 5179 out of the 162827 URLs that we extracted from the SPARQL endpoint.
+        In addition, we do not consider URLs that contain "web.archive.org" and "webcitation.org" since they usually reference to another website and the DBpedia location also refers to the referenced website.
 	    <p>
         Since the quality of the geo-location that we extract from DBpedia is crucial for the performance of the machine learning and thereby the predictions of our service, we performed a manual evaluation.
         In the following we use the term entity to refer to the subject the website belongs to, for example companies, schools, or the government.
@@ -104,21 +106,152 @@
           </li>
 	      </ol>
         The evaluation showed 95% accuracy of the ground truth.
-        The case when the web site was not reachable happened in 8 out of 255 cases.
+        The web site was not reachable in 8 out of 255 cases.
 	    </p>
 	    <h2>Learning model</h2>
 	    <p>
-        We used a variety of statistical models including logistic regression, random forests, and support vector machines (SVMs).
+        The result of the data collection was a total of 233932 URLs with a location from DBpedia and for which we extracted the IP location, TLD location, and website language.
+        On this data we applied a variety of statistical models including logistic regression, random forests, and support vector machines (SVMs).
         SVMs consistently provided the most accurate prediction of a location.
         We used a one vs. one multiclass classifier.
         We trained the models separately for each of our Wikipedia language editions.
         We also trained a general prediction model based on merged data from all DBpedia knowledge bases.
         We use this model as a model for all the languages.
         To evaluate the performance of our model, we used 10-cross fold validation.
-        The accuracy of the general model is 77%.
-        As the baseline we used the IP location which has an accuracy of 56%.
-	      After obtaining the results, we are checking if the prediction agrees with at least one feature, if not than we use IP location as a predictor.
       </p>
+      <p>
+        Table 1 shows the accuracy of the models. First we checked the accuracy over all the data we have.
+		    It is represented in the entry "All data".
+		    Then we checked how well the models can handle difficult cases, when all the parameters disagree.
+		    It is represented in the entry "Difficult cases".
+		    As the baseline we used the IP location.
+      </p>
+      <div class="row">
+        <div class="col-md-8 table-responsive">
+		      <table class="table table-hover table-bordered" >
+		      <caption>Table 1. Accuracy of the models</caption>
+		      	<tr>
+		      		<th>Method</th>
+		      		<th>General</th>
+		      		<th>EN</th>
+		      		<th>FR</th>
+		      		<th>DE</th>
+		      		<th>ES</th>
+		      		<th>UK</th>
+		      		<th>IT</th>
+		      		<th>NL</th>
+		      		<th>SV</th>
+		      		<th>CS</th>
+		      	</tr>
+		      	<tr>
+		      		<td>All data</td>
+		      		<td>81%</td>
+		      		<td>81%</td>
+		      		<td>91%</td>
+		      		<td>90%</td>
+		      		<td>75%</td>
+		      		<td>96%</td>
+		      		<td>91%</td>
+		      		<td>96%</td>
+		      		<td>92%</td>
+		      		<td>98%</td>
+		      	</tr>
+		      	<tr>
+		      		<td>Difficult cases</td>
+		      		<td>77%</td>
+		      		<td>78%</td>
+		      		<td>86%</td>
+		      		<td>80%</td>
+		      		<td>71%</td>
+		      		<td>89%</td>
+		      		<td>85%</td>
+		      		<td>91%</td>
+		      		<td>85%</td>
+		      		<td>93%</td>
+		      	</tr>
+		      </table>
+        </div>
+        <div class="col-md-4"></div>
+      </div>
+		  <p>
+		  Table 2 we presents the importance of each parameter of the learning models.
+		  The number in each cell reflects how well a particular parameter can describe the variance of the ground truth.
+		  To obtain these data we calculated how often a particular parameter agrees with the ground truth.
+		  </p>
+      <div class="row">
+        <div class="col-md-6 table-responsive">
+		      <table class="table table-hover table-bordered" >
+		        <caption>Table 2. Parameters contribuation</caption>
+		        	<tr>
+		        		<th>Model</th>
+		        		<th>IP<br> location</th>
+		        		<th>TLD <br>location</th>
+		        		<th>Website<br> Language</th>
+		        	</tr>
+		        	<tr>
+		        		<td>General</td>
+		        		<td>61%</td>
+		        		<td>58%</td>
+		        		<td>25%</td>
+		        	</tr>
+		        	<tr>
+		        		<td>EN</td>
+		        		<td>30%</td>
+		        		<td>13%</td>
+		        		<td>2%</td>
+		        	</tr>
+		        	<tr>
+		        		<td>FR</td>
+		        		<td>62%</td>
+		        		<td>73%</td>
+		        		<td>23%</td>
+		        	</tr>
+		        	<tr>
+		        		<td>DE</td>
+		        		<td>77%</td>
+		        		<td>68%</td>
+		        		<td>42%</td>
+		        	</tr>
+		        	<tr>
+		        		<td>ES</td>
+		        		<td>29%</td>
+		        		<td>30%</td>
+		        		<td>7%</td>
+		        	</tr>
+		        	<tr>
+		        		<td>UK</td>
+		        		<td>86%</td>
+		        		<td>89%</td>
+		        		<td>29%</td>
+		        	</tr>
+		        	<tr>
+		        		<td>IT</td>
+		        		<td>73%</td>
+		        		<td>70%</td>
+		        		<td>27%</td>
+		        	</tr>
+		        	<tr>
+		        		<td>NL</td>
+		        		<td>86%</td>
+		        		<td>76%</td>
+		        		<td>47%</td>
+		        	</tr>
+		        	<tr>
+		        		<td>SV</td>
+		        		<td>81%</td>
+		        		<td>82%</td>
+		        		<td>29%</td>
+		        	</tr>
+		        	<tr>
+		        		<td>CS</td>
+		        		<td>80%</td>
+		        		<td>78%</td>
+		        		<td>34%</td>
+		        	</tr>
+		        </table>
+        </div>
+        <div class="col-md-6"></div>
+      </div>
       <h3>Classification Fix</h3>
       <p>
         Due to the poor data quality for some of the DBpedia language editions we decided to include one exception in our final classification.

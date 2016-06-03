@@ -1,0 +1,93 @@
+PREFIX dbo: <http://dbpedia.org/resource/classes#>
+PREFIX dbp: <http://dbpedia.org/property/>
+
+SELECT * WHERE {
+    {
+        SELECT * WHERE {
+            ?match foaf:homepage  ?url .
+            {
+                SELECT * WHERE {
+                    ?match dbo:locationCity ?locationCity .
+                    ?locationCity dbp:latitude ?lat .
+                    ?locationCity dbp:longitude ?long
+                }
+            }
+            UNION
+            {
+                SELECT * WHERE {
+                    ?match dbo:locationCity ?locationCity .
+                    ?locationCity geo:lat ?lat .
+                    ?locationCity geo:long ?long
+                }
+            }
+            UNION
+            {
+                SELECT * WHERE {
+                    ?match dbp:parentAgency ?parentAgency .
+                    ?parentAgency geo:lat ?lat .
+                    ?parentAgency geo:long ?long
+                }
+            }
+            UNION
+            {
+                SELECT * WHERE {
+                    ?match geo:lat ?lat .
+                    ?match geo:long ?long
+                }
+            }
+            UNION
+            {
+                SELECT * WHERE {
+                    ?match dbo:location ?location .
+                    ?location geo:lat ?lat .
+                    ?location geo:long ?long
+                }
+            }
+        }
+    }
+    UNION
+    {
+        SELECT * WHERE {
+            ?match dbp:url  ?url .
+            {
+                SELECT * WHERE {
+                    ?match dbo:locationCity ?locationCity .
+                    ?locationCity dbp:latitude ?lat .
+                    ?locationCity dbp:longitude ?long
+                }
+            }
+            UNION
+            {
+                SELECT * WHERE {
+                    ?match dbo:locationCity ?locationCity .
+                    ?locationCity geo:lat ?lat .
+                    ?locationCity geo:long ?long
+                }
+            }
+            UNION
+            {
+                SELECT * WHERE {
+                    ?match dbp:parentAgency ?parentAgency .
+                    ?parentAgency geo:lat ?lat .
+                    ?parentAgency geo:long ?long
+                }
+            }
+            UNION
+            {
+                SELECT * WHERE {
+                    ?match geo:lat ?lat .
+                    ?match geo:long ?long
+                }
+            }
+            UNION
+            {
+                SELECT * WHERE {
+                    ?match dbo:location ?location .
+                    ?location geo:lat ?lat .
+                    ?location geo:long ?long
+                }
+            }
+        }
+    }
+}
+LIMIT 500 OFFSET 0

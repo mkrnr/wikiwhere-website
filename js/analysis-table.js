@@ -3,7 +3,7 @@ function generateAnalysisTable(id, jsonFile) {
   d3.json(jsonFile, function (error, data){
 
     function tabulate(data, columns) {
-      var table = d3.select(id).append('table').classed("table table-bordered table-condensed table-hover",true).attr("id","analysis-table");
+      var table = d3.select(id).append('table').classed("analysis-table table table-bordered table-condensed table-hover",true).attr("id","analysis-table");
       var thead = table.append('thead');
       var	tbody = table.append('tbody');
 
