@@ -23,7 +23,21 @@
         Wikiwhere helps to answer the question where this information comes from by analyzing and visualizing the geographic location of external links that are displayed on a given Wikipedia article.
         Instead of relying solely on the IP location of a given URL, our machine learning models additionally consider the top level domain and the website language.
 	    </p>
-      <p>
+      <h2>Why should I use wikiwhere?</h2>
+		<p>
+        You might just want a starting point for checking the sources, but there may be other interesting things you can find out.
+		For instance you could compare different language versions of the same article to find out whether the different version have a different bias.
+		<div class="well text-center">
+			<span>Comparison between english and russian version of an article:</span>
+			<div class="col-md-6">
+				<a href="#" ><img id="en-crimea" src="data/images/en-crimea.png" /></a>
+				<a href="#" ><img id="ru-crimea" src="data/images/ru-crimea.png" /></a>
+			</div>
+		</div>
+		<p>You could try to do some larger investigations into wikipedia sources. Do national, cross-national patterns exist? Do certain language versions of wikipedia use more diverse sources?
+		There is still more you could find out. Get creative.
+      </p>
+	  <p>
         In the following we will explain our approach and the different ways of how to use our web service. Additionally we provide the source code for this website and the underlying python code that runs the analysis and data extraction under a MIT license.
       </p>
 	    <h2>Approach</h2>
