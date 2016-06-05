@@ -38,7 +38,7 @@
 			  </div>
 			</div>
 		</div>
-		<p>You could try to do some larger investigations into Wikipedia sources. Do national, cross-national patterns exist? Do certain language versions of Wikipedia use more diverse sources?
+		<p>You could even do larger investigations on Wikipedia sources. Do national, cross-national patterns exist? Do certain language versions of Wikipedia use more diverse sources?
 		There is still more you could find out. Get creative!
       </p>
 	  <p>
