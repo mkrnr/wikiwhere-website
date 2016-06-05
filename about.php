@@ -28,14 +28,18 @@
         You might just want a starting point for checking the sources, but there may be other interesting things you can find out.
 		For instance you could compare different language versions of the same article to find out whether the different version have a different bias.
 		<div class="well text-center">
-			<span>Comparison between german and russian version of an article:</span>
-			<div class="col-md-6">
-				<a href="#" ><img id="de-crimea" src="data/images/de-crimea.png" /></a>
-				<a href="#" ><img id="ru-crimea" src="data/images/ru-crimea.png" /></a>
+			<span>Comparison between the German and Russian version of an article:</span>
+      <div class="row">
+			  <div class="col-md-6">
+		  		<img class="screenshot" id="en-crimea" src="data/images/de-crimea.png" />
+		  	</div>
+			  <div class="col-md-6">
+		  		<img class="screenshot" id="ru-crimea" src="data/images/ru-crimea.png" />
+			  </div>
 			</div>
 		</div>
-		<p>You could try to do some larger investigations into wikipedia sources. Do national, cross-national patterns exist? Do certain language versions of wikipedia use more diverse sources?
-		There is still more you could find out. Get creative.
+		<p>You could try to do some larger investigations into Wikipedia sources. Do national, cross-national patterns exist? Do certain language versions of Wikipedia use more diverse sources?
+		There is still more you could find out. Get creative!
       </p>
 	  <p>
         In the following we will explain our approach and the different ways of how to use our web service. Additionally we provide the source code for this website and the underlying python code that runs the analysis and data extraction under a MIT license.
