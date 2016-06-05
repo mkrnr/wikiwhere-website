@@ -28,9 +28,9 @@
         You might just want a starting point for checking the sources, but there may be other interesting things you can find out.
 		For instance you could compare different language versions of the same article to find out whether the different version have a different bias.
 		<div class="well text-center">
-			<span>Comparison between english and russian version of an article:</span>
+			<span>Comparison between german and russian version of an article:</span>
 			<div class="col-md-6">
-				<a href="#" ><img id="en-crimea" src="data/images/en-crimea.png" /></a>
+				<a href="#" ><img id="de-crimea" src="data/images/de-crimea.png" /></a>
 				<a href="#" ><img id="ru-crimea" src="data/images/ru-crimea.png" /></a>
 			</div>
 		</div>
