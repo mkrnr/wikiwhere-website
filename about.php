@@ -101,7 +101,14 @@
         The first part of getting a location is to associate a given URL to a DBpedia entity.
         For this entity we then query for it's location, location city, or the location of it's parent company.
         The SPARQL query that we used can be found <a href="http://wikiwhere.west.uni-koblenz.de/data/dbpedia-locations.rq">here</a>.
+        It is possible to copy this query into the field in the <a href="http://dbpedia.org/sparql">English DBpedia SPARQL endpoint</a>.
         In cases where we retrieve more than one location for a URL we perform a majority voting.
+        For example, the SPARQL query returns four locations for the URL <a href="http://www.treasury.gov.au/">http://www.treasury.gov.au/</a>.
+        The geo-coordinates for all four locations only differ in the second digit after the comma.
+        With our current threshold, geo-coordinates are considered the same if they differ by less than 0.1.
+        Another example is <a href="http://www.bangladesh.gov.bd/maps/images/pabna/Chatmohar.gif">http://www.bangladesh.gov.bd/maps/images/pabna/Chatmohar.gif</a> for which the geo-coordinates two of the four locations differ by 0.2.
+        In this case a majority voting takes place.
+        Since there are two different locations which both appear two times, one of them is selected at random.
         For the English DBpedia, a majority voting was necessary for 5179 out of the 162827 URLs that we extracted from the SPARQL endpoint.
         In addition, we do not consider URLs that contain "web.archive.org" and "webcitation.org" since they usually reference to another website and the DBpedia location also refers to the referenced website.
 	    <p>
@@ -317,7 +324,7 @@
         Otherwise, a new analysis gets executed on the server.
         Currently we allow up to ten parallel analyses.
         Since we extract the content of all linked websites in the given article, the analysis can take several minutes, depending on the number of external links in the article.
-        The plotted results are shown on a seperate webpage.
+        The plotted results are shown on a separate webpage.
       </p>
       <h3>Via URL Parameters</h3>
       <p>
