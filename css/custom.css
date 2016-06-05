@@ -13,9 +13,11 @@
 .m-r-17 { margin-right:17px; }
 .m-r-30 { margin-right:30px; }
 
+a {
+  word-wrap: break-word;
+}
 
 /* index.php formatting */
-
 .col-centered{
   float: none;
   margin: 0 auto;
