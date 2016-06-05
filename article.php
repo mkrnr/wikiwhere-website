@@ -53,9 +53,15 @@
       <div id="analysis-date"></div>
       <h2 id="analysis-url">Article: <a href="<?php echo $article_url; ?>"><?php echo $article_url; ?></a></h2>
 
-      <a title="Click to go to JSON file"
-        href="#" onclick="toJson();return false;">Get analysis results in JSON format</a>
-
+      <p>
+        "Country Classification" refers to the prediction model that we built using location information from the corresponding DBpedia language edition.
+        "General Classification" refers to the model that we built by combining all nine corpora that we extracted from DBpedia.
+        Check the <a href="http://wikiwhere.west.uni-koblenz.de/about.php">about page</a> for more information on our approach.
+      </p>
+      <p>
+        Get the analysis results in JSON format <a title="Click to go to JSON file"
+        href="#" onclick="toJson();return false;">here</a>.
+      </p>
       <h3 class="m-t-30">Heat Map</h3>
       <p>Displays the general classification results.</p>
       <div id="heat-map" style="position: relative; "></div>
