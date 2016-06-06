@@ -74,6 +74,9 @@
         Our final solution uses the <a href="https://pypi.python.org/pypi/geoip2"><code>geoip2</code> Python library</a> in combination with the GeoLite2 data created by MaxMind, available from
 <a href="http://www.maxmind.com">http://www.maxmind.com</a>.
         This allows us to locally calculate IP-locations on a country level.
+        One potential source of wrong IP-locations could result from websites that use content delivery networks such as <a href="https://www.akamai.com/">Akamai</a> since their servers are globally distributed.
+        Thereby, the localization of the content server can be missleading.
+        One goal of the future work could be a better handling of such cases.
       </p>
 	    <h3>Top Level Domain Extraction</h3>
       <p>
