@@ -18,6 +18,10 @@
       <p>You can close this page without stopping the calculation and access it later via <a id="article-url" href="">this link</a>.</p>
     </div>
 
+<?php echo file_get_contents("templates/footer.php") ?>
+
+<?php echo file_get_contents("templates/body-scripts.php") ?>
+
     <script>
       var load_url = window.location.href ;
       var article_url = load_url.replace("/load.php","/article.php");
@@ -28,10 +32,5 @@
 
       window.location = article_url;
     </script>
-
-
-<?php echo file_get_contents("templates/footer.php") ?>
-
-<?php echo file_get_contents("templates/body-scripts.php") ?>
   </body>
 </html>
