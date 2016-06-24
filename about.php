@@ -26,7 +26,7 @@
       <h2>Why should I use wikiwhere?</h2>
 		<p>
         You might just want a starting point for checking the sources, but there may be other interesting things you can find out.
-		For instance you could compare different language versions of the same article to find out whether the different version have a different bias.
+		For instance you could compare different language versions of the same article to find out whether the different version have a geographical bias.
 		<div class="well text-center">
 			<span>Comparison between the German and Russian version of an article:</span>
       <div class="row">
@@ -49,6 +49,7 @@
         We use the term reference to refer to an URL that leads from a given Wikipedia article to another web page that is not associated with the Wikimedia foundation.
         To obtain a training set for the machine learning model, we retrieved geo-location information on websites from <a href="http://dbpedia.org/">DBpedia</a> SPARQL endpoints.
         In order to evaluate the accuracy of the ground truth we manually checked 255 locations for references that we extracted from the English DBpedia.
+        The resulting accuracy was 95% (see <a href="#dbpedia-location-extraction">DBpedia Location Extraction</a>).
         We then randomly extracted URLs from Wikipedia articles which link to websites for which we have the geo-location.
         For this list of URLs we computed the IP-location, top level domain, and website language and used these features in combination with the DBpedia geo-location on the country level to train the model.
 	    <p>
@@ -95,6 +96,7 @@
 	    <p>
         In order to determine the language of a given Website, we first request the website content using the <a href="https://docs.python.org/2/library/urllib.html"><code>urllib</code> package</a>.
         The next step is extracting the actual textual content of the website out of the HTML code.
+      <div id="dbpedia-location-extraction"></div><!--sorry-->
         This is done by first generating Markdown text using the <a href="https://pypi.python.org/pypi/html2text"><code>html2text</code> package</a> and then using the <a href="https://pypi.python.org/pypi/beautifulsoup4"><code>beautifulsoup</code> package</a> to extract the text from Markdown via another conversion to HTML.
         After extracting the text we use the <a href="https://github.com/Mimino666/langdetect"><code>langdetect</code> package</a> for detecting the language.
 	    </p>
@@ -155,7 +157,7 @@
 		    As the baseline we used the IP location.
       </p>
       <div class="row">
-        <div class="col-md-8 table-responsive">
+        <div class="col-md-9 table-responsive">
 		      <table class="table table-hover table-bordered" >
 		      <caption>Table 1. Accuracy of the models</caption>
 		      	<tr>
@@ -185,7 +187,7 @@
 		      		<td>98%</td>
 		      	</tr>
 		      	<tr>
-		      		<td>All data - IP only</td>
+		      		<td>All data - IP only (Baseline)</td>
 		      		<td>61%</td>
 		      		<td>30%</td>
 		      		<td>62%</td>
@@ -211,7 +213,7 @@
 		      		<td>93%</td>
 		      	</tr>
 		      	<tr>
-              <td>Difficult cases - IP only</td>
+              <td>Difficult cases - IP only (Baseline)</td>
               <td>30%</td>
               <td>57%</td>
               <td>64%</td>
@@ -225,7 +227,7 @@
 		      	</tr>
           </table>
         </div>
-        <div class="col-md-4"></div>
+        <div class="col-md-3"></div>
       </div>
 		  <p>
 		  Table 2 presents the importance of each parameter of the learning models.
