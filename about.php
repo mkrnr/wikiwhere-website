@@ -18,11 +18,14 @@
       <p>
         <a href="http://wikiwhere.west.uni-koblenz.de/">Wikiwhere</a> is the result of the research lab 2015-2016 at the <a href="https://www.uni-koblenz-landau.de/de">University of Koblenz-Landau</a> in cooperation with the <a href="http://www.gesis.org/">GESIS – Leibniz Institute for the Social Sciences</a>.
       </p>
-	    <p>
+      <p>
         Wikipedia articles about the same event in different language editions have different sources of information.
         Wikiwhere helps to answer the question where this information comes from by analyzing and visualizing the geographic location of external links that are displayed on a given Wikipedia article.
         Instead of relying solely on the IP location of a given URL, our machine learning models additionally consider the top level domain and the website language.
-	    </p>
+      </p>
+      <p>
+        Publication: Körner, M., Tatiana, T., Windhäuser, F., Wagner, C., &amp; Flöck, F. (2016) <a href="https://arxiv.org/abs/1612.00985">Wikiwhere: An interactive tool for studying the geographical provenance of Wikipedia references</a>. arXiv e-prints. (Updated version of the accepted abstract for the <a href="http://www.gesis.org/css-wintersymposium/program/accepted-posters/">CSS Winter Symposium 2016 poster session</a>.)
+      </p>
       <h2>Why should I use wikiwhere?</h2>
 		<p>
         You might just want a starting point for checking the sources, but there may be other interesting things you can find out.
