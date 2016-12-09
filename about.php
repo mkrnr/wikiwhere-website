@@ -24,7 +24,7 @@
         Instead of relying solely on the IP location of a given URL, our machine learning models additionally consider the top level domain and the website language.
       </p>
       <p>
-        Publication: Körner, M., Tatiana, T., Windhäuser, F., Wagner, C., &amp; Flöck, F. (2016) <a href="https://arxiv.org/abs/1612.00985">Wikiwhere: An interactive tool for studying the geographical provenance of Wikipedia references</a>. arXiv e-prints. (Updated version of the accepted abstract for the <a href="http://www.gesis.org/css-wintersymposium/program/accepted-posters/">CSS Winter Symposium 2016 poster session</a>.)
+        Publication: Körner, M., Sennikova, T., Windhäuser, F., Wagner, C., &amp; Flöck, F. (2016) <a href="https://arxiv.org/abs/1612.00985">Wikiwhere: An interactive tool for studying the geographical provenance of Wikipedia references</a>. arXiv e-prints. (Updated version of the accepted abstract for the <a href="http://www.gesis.org/css-wintersymposium/program/accepted-posters/">CSS Winter Symposium 2016 poster session</a>.)
       </p>
       <h2>Why should I use wikiwhere?</h2>
 		<p>
