@@ -26,6 +26,10 @@
       <p>
         Publication: Körner, M., Sennikova, T., Windhäuser, F., Wagner, C., &amp; Flöck, F. (2016) <a href="https://arxiv.org/abs/1612.00985">Wikiwhere: An interactive tool for studying the geographical provenance of Wikipedia references</a>. arXiv e-prints. (Updated version of the accepted abstract for the <a href="http://www.gesis.org/css-wintersymposium/program/accepted-posters/">CSS Winter Symposium 2016 poster session</a>.)
       </p>
+      <p>
+        See also the related <a href="http://shilad.com/localness/index.html">Wikipedia “Localness” project by Shilad Sen et al.</a>
+      </p>
+
       <h2>Why should I use wikiwhere?</h2>
 		<p>
         You might just want a starting point for checking the sources, but there may be other interesting things you can find out.
