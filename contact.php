@@ -20,15 +20,17 @@
       <h2>Team</h2>
       <table>
         <tr>
-          <td style="padding:0px 5px 0px 0px  ">Tatiana Sennikova:</td>
+          <td style="padding:0px 5px 0px 0px  "><a href="http://mkoerner.de">Martin Körner</a>:</td>
+          <td><a href="mailto:mkoerner@uni-koblenz.de">mkoerner@uni-koblenz.de</a></td>
+        </tr>
+        <tr>
+          <td style="padding:0px 5px 0px 0px  "><a href="https://tsennikova.com">Tatiana Sennikova</a>:</td>
           <td><a href="mailto:tsennikova@uni-koblenz.de">tsennikova@uni-koblenz.de</a></td>
         </tr>
           <td style="padding:0px 5px 0px 0px  ">Florian Windhäuser:</td>
           <td><a href="mailto:fwindhaeuser@uni-koblenz.de">fwindhaeuser@uni-koblenz.de</a></td>
         </tr>
-       <tr><td style="padding:0px 5px 0px 0px  "><a href="http://mkoerner.de">Martin Körner</a>:</td>
-      <td><a href="mailto:mkoerner@uni-koblenz.de">mkoerner@uni-koblenz.de</a></td>
-      </tr></table>
+      </table>
       <h2>Supervisors</h2>
       <table>
         <tr>
