@@ -21,7 +21,7 @@ if __name__ == "__main__":
     max_python_processes = 10
 
     # get the number of running python processes that are currently running
-    process_name = "python2"
+    process_name = "python2.7"
     python_process_count = 0
     for proc in psutil.process_iter():
         process = psutil.Process(proc.pid)# Get the process info using PID

@@ -19,7 +19,7 @@
 
       $python=filter_input(INPUT_GET, 'python');
       if (!isset($python)){
-        $python="/usr/bin/python2";
+        $python="/usr/bin/python2.7";
       }
     ?>
 
